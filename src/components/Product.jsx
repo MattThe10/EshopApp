@@ -7,9 +7,10 @@ export default function Product({ name, imageSource, priceDollar, func }) {
   function toggleFavorite() {
     setFavorite((fav) => !fav);
   }
+
   return (
-    <div className="flex flex-col items-center justify-center border-l-1 border-r-1 border-gray-300 w-[18vw] h-[24rem] mt-5">
-      <img src={imageSource} alt="" className="w-[16rem] h-[12rem]" />
+    <div className="flex flex-col items-center justify-center border-l-1 border-r-1 border-b-1 border-gray-300 w-[18vw] h-[24rem] cursor-pointer">
+      <img src={imageSource} alt="" className="w-[16rem] h-[12rem] mt-6" />
       <h2 className="font-bold mt-4">{name}</h2>
       <div className="flex flex-row  justify-around  w-[100%] h-[100%] items-center mt-[5rem]">
         <p className="p-2 bg-transparent font-bold text-xl text-red-500  rounded-xl">

@@ -2,13 +2,14 @@ import "./App.css";
 import { products } from "./products.js";
 import Header from "./components/Header.jsx";
 import Product from "./components/Product.jsx";
-import Cart from "./components/Cart.jsx";
 import cartImage from "./assets/cart.png";
+import Modal from "./components/Modal.jsx";
 import { useState } from "react";
 
 function App() {
   const [cart, setCart] = useState([]);
   const [cartVisible, setCartVisible] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   function toggleCart() {
     setCartVisible((visible) => !visible);
@@ -16,6 +17,10 @@ function App() {
 
   function addItem(product) {
     setCart((prevCart) => [...prevCart, product]);
+  }
+
+  function toggleModal() {
+    setIsModalOpen((prev) => !prev);
   }
 
   return (
@@ -56,6 +61,7 @@ function App() {
           )}
           <tr>
             <td>
+              {/*Checkout Button */}
               <button
                 type="submit"
                 className="cursor-pointer justify-self-center"
@@ -65,9 +71,13 @@ function App() {
             </td>
             <td>
               <p className="underline font-bold">
-                {cart.reduce((acc, product) => {
-                  return acc + product.priceDollar;
-                }, 0)}
+                {parseFloat(
+                  cart
+                    .reduce((acc, product) => {
+                      return acc + product.priceDollar;
+                    }, 0)
+                    .toFixed(2)
+                )}
                 $
               </p>
             </td>
@@ -87,6 +97,16 @@ function App() {
           );
         })}
       </main>
+      <div className="min-h-screen flex items-center justify-center">
+        <button
+          onClick={toggleModal}
+          className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700"
+        >
+          Open Modal
+        </button>
+
+        <Modal isOpen={isModalOpen} onClose={toggleModal} />
+      </div>
     </>
   );
 }
